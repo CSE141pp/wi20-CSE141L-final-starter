@@ -117,7 +117,7 @@ not* look at the version in your repo.
 
 ### Post-Course Survey
 
-Login to your @ucsd.edu gmail account and fill out this survey: (link)[https://docs.google.com/forms/d/e/1FAIpQLSdoN5kZMH0vs_4lGQ2hrQ0MibKgWnZ3sQlFCSdV_U34TGBIjQ/closedform].  
+Login to your @ucsd.edu gmail account and fill out this survey: [link](https://docs.google.com/forms/d/e/1FAIpQLSdoN5kZMH0vs_4lGQ2hrQ0MibKgWnZ3sQlFCSdV_U34TGBIjQ/closedform).  
 
 You do not need to do this again if you already filled it out for CSE 141.
 
