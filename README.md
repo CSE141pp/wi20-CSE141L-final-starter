@@ -23,11 +23,11 @@ Check gradescope for due date(s).
 Your grade for this lab will be based on your completion of the data
 collection steps described in this document and the completed worksheet.
 
-| Part                       | value |
-|----------------------------|-------|
-| Optimizations              | 80%   |
-| Worksheet                  | 15%   |
-| Reflection                 | 5%    |
+| Part                          | value |
+|-------------------------------|-------|
+| Optimizations                 | 80%   |
+| Worksheet                     | 15%   |
+| Reflection/post-course survey | 5%    |
 
 The optimizations portions of the grade is based on you successfully
 implementing a series of optimizations in Canela, our CNN library.
@@ -114,6 +114,14 @@ submit this via a *a separate assignment* in Gradescope.  We *will
 not* look at the version in your repo.
 
 ## Tasks to Perform
+
+### Post-Course Survey
+
+Login to your @ucsd.edu gmail account and fill out this survey: (link)[https://docs.google.com/forms/d/e/1FAIpQLSdoN5kZMH0vs_4lGQ2hrQ0MibKgWnZ3sQlFCSdV_U34TGBIjQ/closedform].  
+
+You do not need to do this again if you already filled it out for CSE 141.
+
+It will be open during the same window as the final project reflection.
 
 ### Inspect The Code
 
@@ -466,5 +474,4 @@ pretty consistent results without taking too long.
   implementations for each layer by checking the dimensions of layer's tensors.
   However, this may be unwise, since it will increase the number things you
   need optimize.  You can probably do just fine with a single version.
-  
   
