@@ -427,6 +427,62 @@ your autograder submissions will take less time.
 
 This is especially useful if you combine it with `--run-git-remotely`. (See below)
 
+### Examples
+
+**Example:** Run `calc_grads` on layer 4 for 10 seconds:
+
+```
+CMD_LINE_ARGS="--reps 10 --test-layer 4 --function calc_grads
+```
+
+Then
+
+```
+runlab --run-git-remotely -- make code.csv
+```
+
+
+Results will be in `code.csv`
+
+**Example:**  Run `calc_grads` on all `fc_layer_t` layers and run `train_model` with 3 reps (like it does in `benchmark.csv`):
+
+```
+CMD_LINE_ARGS="--reps 10 --test-layer 4 --function calc_grads --function train_model --train-reps 3
+```
+
+Then
+
+```
+runlab --run-git-remotely -- make code.csv
+```
+
+Results will be in `code.csv`
+
+**Example:** Get check the performance of `train_model` on ieng6:
+
+```
+runlab --run-git-remotely -- make benchmark.csv
+```
+
+Results in `benchmark.csv`
+
+**Example:** Run gprof on `train_model`:
+
+```
+#OPENMP=yes
+GPROF=yes
+```
+
+then
+
+```
+runlab --run-git-remotely -- make benchmark.csv
+```
+
+Look in `benchmark.gprof`
+
+
+
 ## Using --run-git-remotely To Speedup Development
 
 We've added a new feature to `runlab`.  You can tell `runlab` to build a
@@ -483,6 +539,7 @@ seconds the test will run for.  5 is good number -- it should give
 pretty consistent results without taking too long.
 
 ## Tips
+
 
 * There are many more things to try in this lab than there have been
   in the earlier labs.  This has two implication:
