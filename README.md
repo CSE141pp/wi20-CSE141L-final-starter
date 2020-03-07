@@ -288,6 +288,58 @@ This lab includes a set of regressions that work just as they did in
 the last lab, except that they also cover the new layers used in this
 lab.
 
+## How To Approach This Lab
+
+Here's a possible algorithm for how to approach the final project:
+
+1. Use `GPROF=yes` and `OPENMP=no` in `config.env` to generate
+`benchmark.gprof` and identify which functions are hot in the
+unoptimized code.
+
+2. Pick the hottest function.
+
+3. Adjust `CMD_LINE_ARGS` in your `config.env` to run that function
+only (following the instructions below) when it generates `code.csv`
+and to ensure that the function runs for at least 5 seconds to get a
+meaningful measurement.  You can do this by adding `--reps 5` to
+`CMD_LINE_ARGS` to get roughly 5 seconds.
+
+4. Submit via gradescope. OR (faster) use `runlab --run-git-remotely
+-- make code.csv`; check `code.csv` for baseline run-time; apply
+optimizations to that function; rerun to check speedup on that
+function; repeat until you're satisfied.
+
+5.  Run `runlab --run-git-remotely -- make benchmark.csv`  (or
+submit via gradescope) to check speedup on `train_model`.  
+
+6.  Do the same for the next hottest function (as identified in step 1).
+
+After you have optimized all the hot functions you found in step 1,
+you need re-measure to see which functions are hot.  Since different
+functions will have sped up by different amounts, the most valuable
+targets for optimization will have changed.
+
+However, this is hard because you have probably multi-threaded some of
+your functions and gprof doesn't work with multithreaded code.
+
+An alternative to print out the amount of time each function takes with something like this:
+
+```
+void calc_grads( const tensor_t<double>& grad_next_layer ) {
+    double start = wall_time();
+    // ... Your implementation ...
+    std::cerr << "calc_grads runtime: " << wall_time() - start << "\n";
+}
+```
+
+`wall_time()` is part of our perfcounter library.  It returns the
+number of seconds since some arbitrary point in the past as a 64-bit
+float.
+
+If you add similar code to all your functions, you can extract simple
+profiling information from the output.  Use that to figure out what to
+optimize next.
+
 ## Measuring Performance of Particular Functions
 
 There are quite a few functions to tune and optimize in this lab.  To make this
