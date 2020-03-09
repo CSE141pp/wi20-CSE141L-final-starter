@@ -348,6 +348,65 @@ If you add similar code to all your functions, you can extract simple
 profiling information from the output.  Use that to figure out what to
 optimize next.
 
+
+### Example of This Approach
+
+For example, let's say you choose `conv_layer_t::fix_weights()`.  This
+is probably not a great choice as a first function to optimize, but
+might be worth it later on.
+
+The first thing to do is to measure the baseline.  Using `code.exe
+--describe-model` you see that, layers 0, 3, 6, 8, and 10 are
+`conv_layer_t`.  For simplicity lets focus on layer 3.
+
+To measure `conv_layer_t::fix_weights()`'s performance you can set 
+
+```
+CMD_LINE_ARGS=--function fix_weights --test-layer 3 --reps 5
+```
+
+The lab infrastructure knows (you can see it listed in `main.cpp`)
+that the unoptimized version of `fix_weights()` runs in layer 3 for
+0.034 seconds or 1/0.034 = 29 times per second.
+
+This means the `--reps 5` setting will run the function 5 * 29 = 145
+times, which will take about 5 seconds.
+
+If you run
+
+```
+runlab --run-git-remotely -- make code.csv
+```
+
+The `runtime` column of `code.csv` will give you the baseline (i.e.,
+unmodified code) execution time for 145 calls to
+`conv_layer_t::fix_weight()`.
+
+If you optimize conv_layer_t::fix_weights() and run the same test, it
+will run the same number of iterations (145), but it might only take 4
+seconds.  Congratulations, you've achieved a speedup up 5/4 = 1.25 for
+`conv_layer_t::fix_weights()`!
+
+However, according to gprof, `conv_layer_t::fix_weights()`
+accounts for only 1.16% of execution time in the baseline version of
+`train_model()`, so the impact of your 1.25 speedup will be (much)
+smaller.  To measure the execution time on `train_model()`, do
+
+```
+runlab --run-git-remotely -- make benchmark.csv
+```
+
+or
+
+```
+runlab --run-git-remotely -- make
+```
+
+or submit via grade scope.  In any case, you can check the contents of
+`benchmark.csv` for runtime of `train_model()` with your modified
+version of `conv_layer_t::fix_weights()`.
+
+
 ## Measuring Performance of Particular Functions
 
 There are quite a few functions to tune and optimize in this lab.  To make this
